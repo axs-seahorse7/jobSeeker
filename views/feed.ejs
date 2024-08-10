@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feed</title>
+    <link rel="stylesheet" href="./stylesheets/feed.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nave-logo">
+            <i class="ri-map-pin-3-fill"></i>
+            <h3>JobSeeker</h3>
+        </div>
+        <div class="searchBox">
+        <form action="/feed/search" method="post" id="serch-user" name="query">
+            <input type="text" id="searchInp" placeholder="Search Your Profile Job">
+            <button><i class="ri-search-line"></i></button>
+        </form>
+    </div>
+    <!-- <div  class="searchUserBox">
+        <div class="user-acc">
+            <div class="user-search-profile">
+                <img src="/images/uploads/<%= encodeURIComponent(user.profile) %>">
+            </div>
+            <div class="user-name-bio">
+                <h4><%= user.username %></h4>
+                <h6>Engineer</h6>
+            </div>
+        </div>
+    </div> -->
+        <div class="navelem">
+            <div>
+                <i class="ri-home-5-line"></i>
+                <h5>Home</h5> 
+            </div>
+            <div>
+                <i class="ri-user-add-line"></i>
+                <h5>Request</h5>
+            </div>
+            <div id="chat-red">
+                <i class="ri-chat-3-line"></i>
+                <h5><a href="/feed/chat">Message</a></h5>
+            </div>
+            <div>
+                <i class="ri-notification-4-line"></i>
+                <h5>Notification</h5>
+            </div>
+            <div>
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="left-nav">
+            <div class="user">
+                <div class="profile-pic" id="choose-pic" style="position: relative;">
+                    <!-- <i class="ri-camera-line" id="camera-logo"></i> -->
+                     <img src="/images/uploads/<%= user.profile %>" >
+                </div>
+
+                <form action="/feed/profile" id="submit-form" method="post" enctype="multipart/form-data">
+                    <input type="file" hidden id="file" name="image">
+                    <!-- <input type="submit" hidden id="file-inp" style="height: 1px; width: 1px;"> -->
+                </form>
+                <h3 style="font-weight: 600; letter-spacing: 1px;"> <%= user.username %> </h3>
+                <h5 style="font-size: 12px; color: gray;">Microsoft Engineer</h5>
+                <a href="#" style="font-size: 14px;">Edit Profile</a>
+            </div>
+            <div class="comunity">
+                <h2>Comunity</h2>
+                <h4>Job preferences</h4>
+                <h4>Saved Jobs</h4>
+                <h4>Applied Jobs</h4>
+                <h4>Privacy Setting</h4>
+            </div>
+        </div>
+        <div class="center-nav">
+            <div class="user-post">
+
+                <div class="serch-elem"> <!-- this is top serch nav in post area-->
+                    <div class="prof-serch">
+                        <img src="/images/uploads/<%= encodeURIComponent( user.profile ) %>">
+                    </div>  
+                    <form action="#" id="form-sub" style="display: flex; align-items: center; justify-content: center; width:80%;">
+                        <input type="text" placeholder="write your thought">
+                        <button style="display: none;"></button>
+                    </form>
+                    <div class="create-post" id="slectimage">
+                        <i class="ri-image-add-line"></i>
+                    </div>
+                </div>
+                <% if (posts && Array.isArray(posts)) { %>
+                <% posts.reverse().forEach(function(elem){ %>
+                    <div class="post-area" id="post-<%= elem._id %>" data-id="<%= elem._id %>" >
+                        <div class="user-prof-det" style=" display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <div class="post-head-container">
+                            <div class="user-prof-pic"> <!-- profile picture container -->
+                                <img src="/images/uploads/<%= encodeURIComponent(user.profile) %>"> 
+                            </div>
+                            <h5 style="font-size: 20px; font-weight: 600; letter-spacing: 1px; color: rgb(41, 40, 40);"><%= user.username %> • </h5>
+                            <div style="color: rgb(63, 63, 63); font-size: 15px; font-weight: 600;"> <%= elem.date.getHours()%> : <%= elem.date.getMinutes()%></div>
+                        </div>
+                            <div class="option" style=" display: flex; justify-content: end; width: 50%; position: relative;">
+                                <p data-id="postDot-<%= elem._id %>" class="post-three-dot" style="cursor: pointer; letter-spacing: 1px; font-size: 20px;">•••</p>
+                                <div class="postOption" id="optionList">
+                                    <div id="remov">Remove</div>
+                                    <div class="del" data-id="<%= elem._id %>">Delete</div>
+                                    <div id="block">Block</div>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="discription" style="margin-bottom: 5px;">
+                            <p><%= elem.caption %></p>
+                        </div>
+                        
+                        <div class="post-image">
+                            <div class="img">
+                                <img src="/images/uploads/<%= encodeURIComponent(elem.picture) %>">
+                            </div>
+                    </div>
+                        <div class="reaction">
+                            <i class="ri-heart-add-2-line"></i>
+                            <i class="ri-chat-1-line"></i>
+                            <i class="ri-share-forward-2-fill"></i>
+                        </div>
+                        <div class="post-user">
+                            <h4><%= elem.likes %></h4>
+                            <h4><%= user.username %></h4>
+                        </div>
+                    </div>
+
+              <% })%>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- post absolute container  -->
+        <div class="footer-post" id="footer-post">
+            <div class="button-post">
+                <i class="ri-close-line" id="cross-close"></i>
+                <h5 id="post-btn">Post</h5>
+            </div>
+            <div class="postpart" id="imgPreview">
+                <div class="selectimgs">
+                    <div class="addimg" id="addimg">
+                        <i class="ri-image-add-line"></i>
+                    </div>
+                    <h4>Select Images</h4>
+                </div>
+            </div>
+            <div class="discriptions" >
+                <h5>Discription</h5>
+                <form action="/feed/post" method="post" enctype="multipart/form-data" id="post-submit">
+                    <textarea class="dis-inp" id="dis-inp" name="caption"> </textarea>
+                    <input type="file" hidden id="imgselector" name="image">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/feed.js"></script>
+</body>
+</html>

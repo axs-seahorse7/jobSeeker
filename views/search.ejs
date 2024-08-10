@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/search.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body>
+    <div class="searchBox">
+        <div class="back-arrow"><i class="ri-arrow-left-line"></i></div>
+        <div class="search-user">
+            <form action="/feed/search" method="get" >
+                <input type="text" id="searchInp" name="query" placeholder="Search Your Profile Job" value="<%= query %>">
+                <button type="submit"><i class="ri-search-line"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="serchedUser" id="searchedUsers">
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/javascripts/axios.js"></script>
+</body>
+</html>
